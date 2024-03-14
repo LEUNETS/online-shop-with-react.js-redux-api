@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 
 import styles from "../../styles/User.module.css";
 
 const UserSignupForm = () => {
-  const [values, setValues] = userState({
+  const [values, setValues] = useState({
     name: "",
     email: "",
     password: "",

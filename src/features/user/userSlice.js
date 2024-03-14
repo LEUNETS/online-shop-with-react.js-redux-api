@@ -15,34 +15,34 @@ export const createUser = createAsyncThunk(
   }
 );
 
-
 const userSlice = createSlice({
   name: "user",
   initialState: {
-    currentUser: {},
+    currentUser: null,
     cart: [],
     isLoading: false,
     formType: "signup",
     showForm: false,
   },
-reduces: {
-addItemToCart: (state, { payload }) => {
-    let newCart = [...state.cart];
-    const found = state.cart.find(({id}) => id === payload.id);
-if (found) {
-    newCart = newCart.map((item) => {
-        return item.id === payload.id
-         ? {...item, quantity: payload.quantity || item.quantity +1 }
+  reduces: {
+    addItemToCart: (state, { payload }) => {
+      let newCart = [...state.cart];
+      const found = state.cart.find(({ id }) => id === payload.id);
+      if (found) {
+        newCart = newCart.map((item) => {
+          return item.id === payload.id
+            ? { ...item, quantity: payload.quantity || item.quantity + 1 }
             : item;
-         });
-    } else newCart.push({ ...payload, quantity:1})
+        });
+      } else newCart.push({ ...payload, quantity: 1 });
 
-state.cart = newCart;
-
-},
-toggleForm: (state, {payload})
-},
-extraReducers: (builder) => {
+      state.cart = newCart;
+    },
+    toggleForm: (state, { payload }) => {
+      state.showForm = payload;
+    },
+  },
+  extraReducers: (builder) => {
     // builder.addCase(getCategories.pending, (state) => {
     //   state.isLoading = true;
     // });
@@ -56,6 +56,6 @@ extraReducers: (builder) => {
   },
 });
 
-export const { addItemToCart } = userSlice.actions;
+export const { addItemToCart, toggleForm } = userSlice.actions;
 
 export default userSlice.reducer;

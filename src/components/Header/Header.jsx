@@ -8,13 +8,15 @@ import { ROUTES } from "../../utils/routes";
 
 import LOGO from "../../images/logo.svg";
 import AVATAR from "../../images/avatar.jpg";
+import { toggleForm } from "../../features/user/userSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
   const { currentUser } = useSelector(({ user }) => user);
-const handleClick = () => {
-  if(!currentUser) dispatch()
-}
+  
+  const handleClick = () => {
+    if (!currentUser) dispatch(toggleForm(true));
+  };
   return (
     <div className={styles.header}>
       <div className={styles.logo}>
